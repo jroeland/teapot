@@ -42,6 +42,8 @@ Now start the django's development server:
     cd project/web/app/
     python manage.py runserver localhost:8000
     
+Surf to http://localhost:8000/admin/ If you can see the admin interface. The install was successful
+    
 To run the tests, run:
 
     cd project/web/app/
@@ -56,6 +58,8 @@ To build the project as a micro-service:
 
     cd project/
     . build.sh
+
+Surf to http://localhost:8000/admin/ If you can see the admin interface. The install was successful
 
 If you have made some changes to the docker file or docker-compose
 and you wish to re-build the service:
@@ -82,37 +86,37 @@ To run the tests:
 ## API end-points
 The end-points for customers:
 
-    /api/customers/ accepts GET, POST requests
-    /api/customers/\<id\>/ accepts GET, PUT and DELETE requests
+    http://localhoct:8000/api/customers/ accepts GET, POST requests
+    http://localhoct:8000/api/customers/\<id\>/ accepts GET, PUT and DELETE requests
 
 The end-points for products:
 
-    /api/products/ accepts GET, POST requests
-    /api/products/\<id\>/ accepts GET, PUT and DELETE requests
+    http://localhoct:8000/api/products/ accepts GET, POST requests
+    http://localhoct:8000/api/products/\<id\>/ accepts GET, PUT and DELETE requests
 
 The end-points for product categories:
 
-    /api/products/categories/ accepts GET, POST requests
-    /api/products/categories/\<id\>/ accepts GET, PUT and DELETE requests
+    http://localhoct:8000/api/products/categories/ accepts GET, POST requests
+    http://localhoct:8000/api/products/categories/\<id\>/ accepts GET, PUT and DELETE requests
     
 The end-points for free product discounts:
 
-    /api/discounts/freeproducts/ accepts GET, POST requests
-    /api/discounts/freeproducts/\<id\>/ accepts GET, PUT and DELETE requests
+    http://localhoct:8000/api/discounts/freeproducts/ accepts GET, POST requests
+    http://localhoct:8000/api/discounts/freeproducts/\<id\>/ accepts GET, PUT and DELETE requests
 
 The end-points for category discounts:
 
-    /api/discounts/categories/ accepts GET, POST requests
-    /api/discounts/categories/\<id\>/ accepts GET, PUT and DELETE requests
+    http://localhoct:8000/api/discounts/categories/ accepts GET, POST requests
+    http://localhoct:8000/api/discounts/categories/\<id\>/ accepts GET, PUT and DELETE requests
 
 The end-points for cutomer loyalty discounts:
 
-    /api/discounts/loyalty/ accepts GET, POST requests
-    /api/discounts/loyalty/\<id\>/ accepts GET, PUT and DELETE requests
+    http://localhoct:8000/api/discounts/loyalty/ accepts GET, POST requests
+    http://localhoct:8000/api/discounts/loyalty/\<id\>/ accepts GET, PUT and DELETE requests
     
 The end-points to calculate discounts for an order:
 
-    /api/discounts/calculate/ accepts POST requests
+    http://localhoct:8000/api/discounts/calculate/ accepts POST requests
 
 IMPORTANT: All request urls must end with a "/"
 
