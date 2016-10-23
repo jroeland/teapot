@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'website.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-TEST = True
+TEST = False
 if not TEST:
     DATABASES = {
         'default': {
