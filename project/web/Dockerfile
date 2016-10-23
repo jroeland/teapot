@@ -48,10 +48,14 @@ RUN pip install -r /home/docker/code/app/requirements.txt
 # add (the rest of) our code
 COPY . /home/docker/code/
 
-# install django, normally you would remove this step because your project would already
-# be installed in the code/app/ directory
-#RUN django-admin.py startproject website /home/docker/code/app/ 
+# Run the migrations
+RUN python /home/docker/code/app/manage.py migrate
 
+#Add the initial fixtures
+RUN python /home/docker/code/app/manage.py loaddata /home/docker/code/app/admin/fixtures/initial_data.json
+RUN python /home/docker/code/app/manage.py loaddata /home/docker/code/app/customers/fixtures/initial_data.json
+RUN python /home/docker/code/app/manage.py loaddata /home/docker/code/app/products/fixtures/initial_data.json
+RUN python /home/docker/code/app/manage.py loaddata /home/docker/code/app/discounts/fixtures/initial_data.json
 
 EXPOSE 80
 CMD ["supervisord", "-n"]
