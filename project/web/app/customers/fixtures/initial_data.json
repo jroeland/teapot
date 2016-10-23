@@ -1,0 +1,32 @@
+[
+    {
+        "model":"customers.customer",
+        "pk":1,
+        "fields":{
+            "name":"Coca Cola",
+            "since":"2014-06-28",
+            "revenue":"492.12",
+            "uid" : "1"
+        }
+    },
+    {
+        "model":"customers.customer",
+        "pk":2,
+        "fields":{
+            "name":"Teamleader",
+            "since":"2015-01-15",
+            "revenue":"1505.95",
+            "uid" : "2"
+        }
+    },
+    {
+        "model":"customers.customer",
+        "pk":3,
+        "fields":{
+            "name":"Jeroen De Wit",
+            "since":"2016-02-11",
+            "revenue":"0.00",
+            "uid" : "3"
+        }
+    }
+]

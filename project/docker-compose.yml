@@ -1,0 +1,16 @@
+version: '2'
+services:
+  db:
+    image: postgres
+    container_name: djangoAppDB
+  web:
+    build: ./web
+    command: supervisord -n
+    volumes:
+      - ./web:/home/docker/code/
+      - ./web/nginx-app.conf:/etc/nginx/sites-available/default
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+    container_name: djangoApp

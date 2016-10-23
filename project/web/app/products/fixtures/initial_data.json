@@ -1,0 +1,68 @@
+[
+    {
+        "model":"products.productcategory",
+        "pk":1,
+        "fields":{
+            "description":"Tools",
+            "uid" : "1"
+        }
+    },
+    {
+        "model":"products.productcategory",
+        "pk":2,
+        "fields":{
+            "description":"Switches",
+            "uid" : "2"
+        }
+    },
+    {
+        "model":"products.product",
+        "pk":1,
+        "fields":{
+            "uid":"A101",
+            "description":"Screwdriver",
+            "category":"1",
+            "price":"9.75"
+        }
+    },
+    {
+        "model":"products.product",
+        "pk":2,
+        "fields":{
+            "uid":"A102",
+            "description":"Electric screwdriver",
+            "category":"1",
+            "price":"49.50"
+        }
+    },
+    {
+        "model":"products.product",
+        "pk":3,
+        "fields":{
+            "uid":"B101",
+            "description":"Basic on-off switch",
+            "category":"2",
+            "price":"4.99"
+        }
+    },
+    {
+        "model":"products.product",
+        "pk":4,
+        "fields":{
+            "uid":"B102",
+            "description":"Press button",
+            "category":"2",
+            "price":"4.99"
+        }
+    },
+    {
+        "model":"products.product",
+        "pk":5,
+        "fields":{
+            "uid":"B103",
+            "description":"Switch with motion detector",
+            "category":"2",
+            "price":"12.95"
+        }
+    }
+]
