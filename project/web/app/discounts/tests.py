@@ -13,6 +13,9 @@ class FreeProductAPITestCase(BaseApiTestCase, TestCase):
         self.productcategory = ProductCategory.objects.create(**c1)
         p1 = {"uid":"A101", "description":"Screwdriver", "category":self.productcategory, "price":"9.75"}
         self.product = Product.objects.create(**p1)
+        p2 = {"uid":"A102", "description":"Teapot", "category":self.productcategory, "price":"10"}
+        Product.objects.create(**p2)
+        
         fp = {"product":self.product, "quantity_required":5}
         self.freeproduct = FreeProduct.objects.create(**fp)
         
@@ -26,7 +29,7 @@ class FreeProductAPITestCase(BaseApiTestCase, TestCase):
     
     def test_post(self):
         queryset = FreeProduct.objects.filter(id = 2)
-        post_data = '{"product":"%s", "quantity_required":"9"}' % self.product.uid
+        post_data = '{"product":"A102", "quantity_required":"9"}'
         super(FreeProductAPITestCase, self).test_post("/api/discounts/freeproducts/", queryset, post_data)
         
     def test_put(self):
