@@ -25,7 +25,7 @@ SECRET_KEY = 'ejxy^_(!sf_)ps@#2dr*q+x2jkuv0rre3dlm$orh%1*pvj1_jz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 LOG = logging.basicConfig(filename='/tmp/myapp.log', level=logging.DEBUG)
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
