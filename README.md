@@ -8,6 +8,10 @@ docke-compose which calculates discounts for orders.
 - Unit-tests
 - Admin interface
 
+## How to get Teapot
+
+    git clone https://github.com/jroeland/teapot.git
+
 ## Install instructions - Fast (Tested only in linux-debian based distributions)
 Requirements:
 - pip
@@ -191,3 +195,6 @@ To delete an entry from the database, we need to pass the entry's id in the url:
     Connection: keep-alive
     X-Frame-Options: SAMEORIGIN
 
+## The Author
+Teapot was designed and developed by Jaime Roeland in 2016.
+jaime.roeland@gmail.com
