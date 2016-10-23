@@ -40,7 +40,7 @@ it will still work if ran globally:
 Now start the django's development server:
 
     cd project/web/app/
-    python manage.py runserver localhost:8080
+    python manage.py runserver localhost:8000
     
 To run the tests, run:
 
