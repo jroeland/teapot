@@ -1,7 +1,7 @@
 # Teapot
 
 Teapot is a python-django based application wrapped in
-docke-compose which calculates discounts for orders.
+docker-compose which calculates discounts for orders.
 
 ## Features
 - A simple REST-API which can be easely used in class based views
