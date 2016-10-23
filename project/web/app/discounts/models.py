@@ -4,13 +4,13 @@ from products.models import ProductCategory, Product
 
 
 class FreeProduct(models.Model):
-    product = models.ForeignKey(Product, to_field = "uid")
+    product = models.OneToOneField(Product, to_field = "uid")
     quantity_required = models.IntegerField(default = 1)
     
     
-    class Meta:
-        #Accept only 1 unique combination of products and quantity
-        unique_together = ('product', 'quantity_required',)
+#     class Meta:
+#         #Accept only 1 unique combination of products and quantity
+#         unique_together = ('product', 'quantity_required',)
     
     def __unicode__(self):
         return "%s, Quantity: %d" % (self.product.description, self.quantity_required)

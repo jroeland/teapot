@@ -3,16 +3,16 @@
         "model":"products.productcategory",
         "pk":1,
         "fields":{
-            "description":"Tools",
-            "uid" : "1"
+            "uid":"1",
+            "description":"Tools"
         }
     },
     {
         "model":"products.productcategory",
         "pk":2,
         "fields":{
-            "description":"Switches",
-            "uid" : "2"
+            "uid":"2",
+            "description":"Switches"
         }
     },
     {
