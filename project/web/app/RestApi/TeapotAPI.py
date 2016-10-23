@@ -127,4 +127,4 @@ class TeapotAPI(JSONResponseMixin, JSONQuerysetResponseMixin, View):
             #Return a serialized version of the data created/updated
             return self.render_queryset_to_response([data], status = 201)
         #Form did not validate... something is wrong with the data sent!
-        return HttpResponse("Data did not validate", status = 400)
+        return HttpResponse("Data did not validate: %s" % valitation_form.errors, status = 400)
