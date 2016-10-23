@@ -14,6 +14,7 @@ docke-compose which calculates discounts for orders.
 
 ## Install instructions - Fast 
 Note: Tested only in linux-debian based distributions.
+
 Requirements:
 - pip
 
@@ -28,6 +29,7 @@ Change the following variable to True:
     
 Run the following file, which will install the requirements using pip, run
 the migrations and load the initial data.
+
 Note: Its recommended to run this command in a virttual env, although
 it will still work if ran globally:
 
@@ -46,6 +48,7 @@ To run the tests, run:
 
 ## Install instructions - docker-compose
 The service will be running in port 8000.
+
 To change this, edit the file project/docker-compose.yml
 
 To build the project as a micro-service:
@@ -142,6 +145,7 @@ To get one specific customer, pass the customer id in the url:
 
 ### POST
 To post a Product with a new category:
+
 First create a new category, or the post for the product will be refused:
 
     curl -H "Content-Type: application/json" -X POST -d @web/app/examples/resources/newcategory.json http://localhost:8000/api/products/categories/
