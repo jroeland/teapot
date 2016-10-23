@@ -23,9 +23,10 @@ Simply edit the following file:
 
     /project/web/app/website/settings.py
 
-Change the following variable to True:
+Change the following variables:
 
-    TEST = False
+    TEST = True
+    STATIC_ROOT = '"/path/to/your/repo/static'
     
 Run the following file, which will install the requirements using pip, run
 the migrations and load the initial data.
@@ -232,6 +233,38 @@ To delete an entry from the database, we need to pass the entry's id in the url:
     Content-Type: text/html; charset=utf-8
     Connection: keep-alive
     X-Frame-Options: SAMEORIGIN
+
+## Discounts mechanics
+
+### Free product discount
+Only one free product discount can be applied for a product.
+Attempting to add a 2 free product instance will return a 400 error.
+
+Example:
+- Buying 10 screw drivers
+- Free product discount present: Buy 5, get 1 free
+
+The outcome will be 2 free products.
+
+### Category discounts
+There can be multiple category discounts for a category. The best option (based on quantity required) will be selected for the discount.
+
+Example:
+- Buying 5 products with category tools
+- Category discount present: Buy 5, get 20% discount on cheapest product
+- Category discount present: Buy 6, get 25% discount ont cheapest product
+
+In this case, the option with `Buy6, get %25% discount` will be selected as we assume that the more items you buy, the higher the discount will be.
+
+### Loyalty discounts
+There can be multiple loyalty discounts. The best option (based on revenue required) will be selected for the discount.
+
+Example:
+- Customer has bought $2000
+- Loyalty dicount: Required revenue: $1000, 10% discount
+- Loyalty dicount: Required revenue: $2000, 20% discount
+
+In this case, the option `Required revenue: $2000, 20% discount` will be selected as we assume that the more a customer spends, the higher the discount will be.
 
 ## Admin Interface
 To facitilate operations, the admin site is available.
