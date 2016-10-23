@@ -114,6 +114,8 @@ The end-points to calculate discounts for an order:
 
     /api/discounts/calculate/ accepts POST requests
 
+IMPORTANT: All request urls must end with a "/"
+
 ## API request Examples
 ### GET
 Get all customers:
