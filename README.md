@@ -1,2 +1,3 @@
-# projectlead
+# Teapot API
+
 Test project
