@@ -12,7 +12,8 @@ docke-compose which calculates discounts for orders.
 
     git clone https://github.com/jroeland/teapot.git
 
-## Install instructions - Fast (Tested only in linux-debian based distributions)
+## Install instructions - Fast 
+Note: Tested only in linux-debian based distributions
 Requirements:
 - pip
 
@@ -33,12 +34,12 @@ it will still work if ran globally:
     cd project/
     . /easy_build.sh
 
-Now start the django's development server with the following command:
+Now start the django's development server:
 
     cd project/web/app/
     python manage.py runserver localhost:8080
     
-To run the tests, run the following command:
+To run the tests, run:
 
     cd project/web/app/
     python manage.py runserver localhost:8080
@@ -47,12 +48,13 @@ To run the tests, run the following command:
 The service will be running in port 8000.
 To change this, edit the file project/docker-compose.yml
 
-To build the project as a micro-service, run the following command:
+To build the project as a micro-service:
 
     cd project/
     . build.sh
 
-If you have made some changes to the docker file and you wish to re-build the service:
+If you have made some changes to the docker file or docker-compose
+and you wish to re-build the service:
 
     cd project/
     . rebuildAll.sh
@@ -73,7 +75,7 @@ To run the tests:
     cd project/
     . runTests.sh
 
-## End-points
+## API end-points
 The end-points for customers:
 
     /api/customers/ accepts GET, POST requests
@@ -107,12 +109,6 @@ The end-points for cutomer loyalty discounts:
 The end-points to calculate discounts for an order:
 
     /api/discounts/calculate/ accepts POST requests
-
-## Admin Interface
-To facitilate operations, the admin site is available.
-To login to the admin interface, go to /admin/
-- Username: admin
-- Password: teapotapi
 
 ## API request Examples
 ### GET
@@ -232,6 +228,12 @@ To delete an entry from the database, we need to pass the entry's id in the url:
     Content-Type: text/html; charset=utf-8
     Connection: keep-alive
     X-Frame-Options: SAMEORIGIN
+
+## Admin Interface
+To facitilate operations, the admin site is available.
+To login to the admin interface, go to /admin/
+- Username: admin
+- Password: teapotapi
 
 ## The Author
 Teapot was designed and developed by Jaime Roeland in 2016.
