@@ -13,7 +13,7 @@ docke-compose which calculates discounts for orders.
     git clone https://github.com/jroeland/teapot.git
 
 ## Install instructions - Fast 
-Note: Tested only in linux-debian based distributions
+Note: Tested only in linux-debian based distributions.
 Requirements:
 - pip
 
