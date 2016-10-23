@@ -6,6 +6,7 @@ python /home/docker/code/app/manage.py loaddata /home/docker/code/app/admin/fixt
 python /home/docker/code/app/manage.py loaddata /home/docker/code/app/customers/fixtures/initial_data.json
 python /home/docker/code/app/manage.py loaddata /home/docker/code/app/products/fixtures/initial_data.json
 python /home/docker/code/app/manage.py loaddata /home/docker/code/app/discounts/fixtures/initial_data.json
+python /home/docker/code/app/manage.py collectstatic <<<yes
 
 #Start the server
 supervisord -n
