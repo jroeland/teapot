@@ -23,9 +23,10 @@ Simply edit the following file:
 
     /project/web/app/website/settings.py
 
-Change the following variable to True:
+Change the following variables:
 
-    TEST = False
+    TEST = True
+    STATIC_ROOT = '"/path/to/your/repo/static'
     
 Run the following file, which will install the requirements using pip, run
 the migrations and load the initial data.
