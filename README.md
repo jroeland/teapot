@@ -44,6 +44,9 @@ To run the tests, run the following command:
     python manage.py runserver localhost:8080
 
 ## Install instructions - docker-compose
+The service will be running in port 8000.
+To change this, edit the file project/docker-compose.yml
+
 To build the project as a micro-service, run the following command:
 
     cd project/
@@ -168,6 +171,41 @@ Now we can post a new product:
             "price":"12.95"
         }
     }]
+
+To calculate discounts for orders:
+
+    curl -H "Content-Type: application/json" -X POST -d @web/app/examples/resources/orders/order1.json http://localhost:8000/api/discounts/calculate/
+    {"total":"49.90",
+    "new_total":49.9,
+    "items":[
+        {
+            "unit-price":4.99,
+            "category":"2",
+            "product-id":"B102",
+            "free_products":{
+                "quantity_required":5,
+                "product_id":"B102",
+                "to_receive":2
+            },
+            "total":49.9,
+            "quantity":10
+        }
+    ],
+    "customer-id":"1",
+    "loyalty_discount_details":null,
+    "id":"1",
+    "category_discounts":[
+        {
+            "category_id":"2",
+            "new_total":49.9,
+            "cheapest_product_discount":0.0,
+            "cheapest_product_discount_details":null,
+            "total":49.9,
+            "cheapest_product_price":4.99,
+            "quantity":10
+        }
+    ]}
+
 
 ### PUT
 To update an existing entry in the database, we need to pass the entry's id in the url:
