@@ -49,4 +49,4 @@ RUN pip install -r /home/docker/code/app/requirements.txt
 COPY . /home/docker/code/
 
 EXPOSE 80
-CMD ["supervisord", "-n"]
+#CMD ["supervisord", "-n"]
