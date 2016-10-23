@@ -1,7 +1,7 @@
 # Teapot
 
 Teapot is a python-django based application wrapped in
-docke-compose which calculates discounts for orders.
+docker-compose which calculates discounts for orders.
 
 ## Features
 - A simple REST-API which can be easely used in class based views
@@ -40,12 +40,12 @@ it will still work if ran globally:
 Now start the django's development server:
 
     cd project/web/app/
-    python manage.py runserver localhost:8080
+    python manage.py runserver localhost:8000
     
 To run the tests, run:
 
     cd project/web/app/
-    python manage.py runserver localhost:8080
+    python manage.py test
 
 ## Install instructions - docker-compose
 The service will be running in port 8000.
