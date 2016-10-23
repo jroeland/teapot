@@ -107,3 +107,87 @@ To login to the admin interface, go to /admin/
 - Username: admin
 - Password: teapotapi
 
+## API request Examples
+### GET
+Get all customers:
+
+    curl -X GET  http://localhost:8000/api/customers/
+    [{
+        "model":"customers.customer",
+        "pk":1,
+        "fields":{
+            "uid":"1",
+            "name":"Coca Cola",
+            "since":"2014-06-28",
+            "revenue":"492.12"
+        }
+    },...]
+
+To get one specific customer, pass the customer id in the url:
+
+    curl -X GET  http://localhost:8000/api/customers/1/
+    [{
+        "model":"customers.customer",
+        "pk":1,
+        "fields":{
+            "uid":"1",
+            "name":"Coca Cola",
+            "since":"2014-06-28",
+            "revenue":"492.12"
+        }
+    }]
+
+### POST
+To post a Product with a new category:
+First create a new category, or the post for the product will be refused:
+
+    curl -H "Content-Type: application/json" -X POST -d @web/app/examples/resources/newcategory.json http://localhost:8000/api/products/categories/
+    [{
+        "model":"products.productcategory",
+        "pk":3,
+        "fields":{
+            "uid":"3",
+            "description":"Garden"
+        }
+    }]
+    
+Now we can post a new product:
+    
+    curl -H "Content-Type: application/json" -X POST -d @web/app/examples/resources/newproduct.json http://localhost:8000/api/products/
+    [{
+        "model":"products.product",
+        "pk":6,
+        "fields":{
+            "uid":"C101",
+            "description":"Switch with motion detector",
+            "category":"3",
+            "price":"12.95"
+        }
+    }]
+
+### PUT
+To update an existing entry in the database, we need to pass the entry's id in the url:
+
+    curl -H "Content-Type: application/json" -X PUT -d @web/app/examples/resources/editproduct.json http://localhost:8000/api/products/C101/
+    [{
+        "model":"products.product",
+        "pk":6,
+        "fields":{
+            "uid":"C101",
+            "description":"A tea pot!",
+            "category":"3",
+            "price":"0.01"
+        }
+    }]
+    
+### DELETE
+To delete an entry from the database, we need to pass the entry's id in the url:
+
+    curl -H "Content-Type: application/json" -X DELETE -d @web/app/examples/resources/editproduct.json http://localhost:8000/api/products/C101/ -i
+    HTTP/1.1 204 No Content
+    Server: nginx/1.4.6 (Ubuntu)
+    Date: Sun, 23 Oct 2016 16:30:48 GMT
+    Content-Type: text/html; charset=utf-8
+    Connection: keep-alive
+    X-Frame-Options: SAMEORIGIN
+
