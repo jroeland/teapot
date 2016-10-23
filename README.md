@@ -50,7 +50,7 @@ If you have made some changes to the docker file and you wish to re-build the se
     cd project/
     . rebuildAll.sh
 
-Some extra management commands when using the service:
+### Some extra management commands when using the service:
 To stop the service:
 
     cd project/
