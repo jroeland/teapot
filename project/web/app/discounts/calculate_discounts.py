@@ -12,10 +12,31 @@ from pprint import pprint
 
 class CalculateDiscounts(object):
     def __init__(self, order):
+        """
+            Calculate discounts for orders
+            @param order: dict
+            Example of order:
+            {
+              "id": "1",
+              "customer-id": "1",
+              "items": [
+                {
+                  "product-id": "B102",
+                  "quantity": "10",
+                  "unit-price": "4.99",
+                  "total": "49.90"
+                }
+              ],
+              "total": "49.90"
+            }
+        """
         self.order = order
         self.product_discounts = []
     
     def set_discounts(self):
+        """
+            Call this method to set discounts to the given order
+        """
         #Step 1: Check that the dictionary has the required customer keys
         order = self.order
         self._check_customer_keys(order)
@@ -58,7 +79,14 @@ class CalculateDiscounts(object):
         #Calculate the new total
         order['new_total'] = self._calculate_new_total(order, order['loyalty_discount_details'])
         return order
+    
     def _check_customer_keys(self, data):
+        """
+            Check that the given order has the main fields.
+            @param data: dict -> order 
+            raises an exeption if there are missing keys
+            returns None
+        """
         required_customer_keys = ("customer-id", "items", "total")
         #Check if a dict has the required keys.
         #Map will create a list with 0 and 1:
@@ -70,11 +98,17 @@ class CalculateDiscounts(object):
         
         #Is items a list?
         items = data['items']
+        
         if type(items) != type([]) and type(items) != type(()):
             #Not a list, not a touple... we cant work with it!
             raise Exception("Items is not a dictionary or a list")
         
     def _get_loyalty_discount(self, data):
+        """
+            Get the loyalty discount for a customer
+            @param data: dict -> order
+            reurns LoyaltyDiscount instance as values
+        """
         try:
             customer = Customer.objects.get(uid = data['customer-id'])
         except Customer.DoesNotExist:
@@ -89,7 +123,13 @@ class CalculateDiscounts(object):
         return loyalty_discount
     
     def _check_order_item_keys(self, order_item):
-        #Check that this product has all the keys
+        """
+            Check that this product has all the keys required
+            @param order_item: dict -> An item in the order
+            raises an exeption if there are missing keys
+            returns None
+        """
+        
         #Map will create a list with 0 and 1:
         #If 0: key is there
         #If 1, key is not there
@@ -99,7 +139,12 @@ class CalculateDiscounts(object):
             raise Exception("Missing key in dict, make sure that all required values are included for each order: %s" % unicode(required_order_keys))
     
     def _merge_items_and_categorize(self, data):
-        
+        """
+            This method will merge repeated items in an order
+            and will assign them the correct category.
+            @param data: dict -> order 
+            returns (The merged items, list of category dicrionaries)
+        """
         #In order to find the category for each product, we will have to link the given product and the product in the db
         product_ids = [x['product-id'] for x in data['items']]
         products = Product.objects.filter(uid__in = product_ids).values("category_id", "uid",)
@@ -109,9 +154,6 @@ class CalculateDiscounts(object):
         merged_items = []
         dict_categories_order = []
         for order in data['items']:
-            
-            
-            
             iid = order['product-id']
             #Now, we need to determine the category of this item to later check for category discounts
             #It may be that a sent product id is not in our DB, then the search will return None
@@ -121,6 +163,7 @@ class CalculateDiscounts(object):
                 #We now know which category is this item 
                 #any(d['category_id'] == db_instance['categoory_id'] for d in category_discounts):
                 order['category_id'] = db_product['category_id']
+            
             if iid not in known_item_ids:
                 #This item id is new
                 cleanned_dict = {}
@@ -129,9 +172,6 @@ class CalculateDiscounts(object):
                 cleanned_dict["unit-price"] = Decimal(order['unit-price'])
                 cleanned_dict["total"] = Decimal(order['total'])
                 cleanned_dict["category"] = order['category_id']
-                
-                
-                
                 known_item_ids.append(iid)
                 merged_items.append(cleanned_dict)
                 
@@ -147,6 +187,7 @@ class CalculateDiscounts(object):
                 #Now, let create a list of dicts with the category and quantity bought
                 category_match = next((cat for cat in dict_categories_order if cat["category_id"] == order['category_id']), None)
                 product_price = Decimal(order['unit-price'])
+                
                 if not category_match:
                     #Its not in the list, so we add a new entry!
                     d = {}
@@ -155,6 +196,7 @@ class CalculateDiscounts(object):
                     d['cheapest_product_price'] = product_price
                     d['total'] = Decimal(order['total'])
                     dict_categories_order.append(d)
+                
                 else:
                     category_match['quantity'] += int(order['quantity'])
                     category_match['total'] += Decimal(order['total'])
@@ -164,6 +206,11 @@ class CalculateDiscounts(object):
         return merged_items, dict_categories_order
     
     def _set_free_product_discounts(self, data):
+        """
+            Sets the free product discount in an item if applicable
+            @param data: dict -> order
+            returns the order with the added free product discounts
+        """
         #get the product id keys from the list of dicts
         product_ids = [str(x['product-id']) for x in data['items']]
         
@@ -182,9 +229,11 @@ class CalculateDiscounts(object):
                 #All free products have a match to product, but not all products have a match on FreeProducts, so it will rise index error
                 #free_products is sorted by highest to lowest, so we will always get the best offer
                 applicable_free_product = [x for x in free_products if x['product_id'] == product_order['product-id']][0]
+            
             except IndexError:
                 #No applicable promotion here
                 applicable_free_product = None
+            
             else:
                 #Calculate how many products will the customer receive
                 applicable_free_product['to_receive'] = product_order['quantity'] / applicable_free_product['quantity_required']
@@ -192,27 +241,44 @@ class CalculateDiscounts(object):
             #Add a key to the product with the applicable promotion for free product
             product_order['free_products'] = applicable_free_product
         return data
-    def _set_category_discounts(self, data, dict_categories_order):
+    def _set_category_discounts(self, data, categories):
+        """
+            Sets the category discounts for each category if applicable
+            @param data: dict -> order
+            @param categories: list -> Containing the categories description
+            returns the order with the category discounts
+        """
         #Now we know about the categories and the total items bought for each, now just simply search for the matching category discount
-        db_category_discounts = CategoryDiscount.objects.filter(category_id__in = [x['category_id'] for x in dict_categories_order])
+        db_category_discounts = CategoryDiscount.objects.filter(category_id__in = [x['category_id'] for x in categories])
         db_category_discounts = db_category_discounts.order_by("-quantity_required").values("category_id", "quantity_required", "percent_discount")
-        for dco in dict_categories_order:
+        
+        for dco in categories:
             dco['cheapest_product_discount_details'] = None
             dco['cheapest_product_discount'] = Decimal("0")
             dco['new_total'] = dco['total']
             #Check that the category and category's discount quiantity items is met
             category_match = next((cat for cat in db_category_discounts if cat["category_id"] == dco['category_id'] and cat['quantity_required'] <= int(dco['quantity'])), None)
+            
             if category_match:
                 dco['cheapest_product_discount_details'] = category_match
                 dco['cheapest_product_discount'] = (category_match['percent_discount'] * dco['cheapest_product_price'])
                 self.product_discounts.append(dco['cheapest_product_discount'])
                 dco['new_total'] = dco['total'] - dco['cheapest_product_discount']
         
-        data['category_discounts'] = dict_categories_order
+        data['category_discounts'] = categories
         return data
     
     def _calculate_new_total(self, data, loyalty_discount):
+        """
+            Calculates the new total
+            - Adds the discount for products
+            - Adds the loyalty discount (after calculating the product discounts)
+            @param data: dict -> order
+            @param loyalty_discount: dict -> LoyaltyDictount instance as values
+            returns the order with the new total
+        """
         new_total = Decimal(data['total'])
+        
         if self.product_discounts:
             product_discounts = sum(self.product_discounts)
             new_total = new_total - product_discounts
