@@ -26,7 +26,7 @@ Simply edit the following file:
 Change the following variables:
 
     TEST = True
-    STATIC_ROOT = '"/path/to/your/repo/static'
+    STATIC_ROOT = '/<path>/<to>/<repo>/app/static'
     
 Run the following file, which will install the requirements using pip, run
 the migrations and load the initial data.
