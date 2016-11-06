@@ -9,3 +9,4 @@ python web/app/manage.py loaddata web/app/admin/fixtures/initial_data.json
 python web/app/manage.py loaddata web/app/customers/fixtures/initial_data.json
 python web/app/manage.py loaddata web/app/products/fixtures/initial_data.json
 python web/app/manage.py loaddata web/app/discounts/fixtures/initial_data.json
+python web/app/manage.py collectstatic <<<yes
